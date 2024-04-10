@@ -1,12 +1,11 @@
 import React from "react";
 import "./Ads.css";
-import image from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/AdsImage.png";
-import image1 from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/i1.png";
-import image2 from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/i2.png";
-import image3 from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/i3.png";
-import image4 from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/i4.png";
-import image5 from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/i5.png";
-import image6 from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/i6.png";
+import image1 from "../../i1.png";
+import image2 from "../../i2.png";
+import image3 from "../../i3.png";
+import image4 from "../../i4.png";
+import image5 from "../../i5.png";
+import image6 from "../../i6.png";
 
 export default function Ads() {
   return (

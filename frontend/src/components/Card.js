@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Card.css'; // Import CSS file for styling
-import image from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/i2.png"
+import image from "../i2.png"
 const Card = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
 

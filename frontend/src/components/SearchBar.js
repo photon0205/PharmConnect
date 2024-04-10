@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import "./SearchBar.css"; // Import CSS file for styling
-import sicon from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/components/searchIcon.png";
+import sicon from "./searchIcon.png";
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState("");

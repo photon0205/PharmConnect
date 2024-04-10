@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import img1 from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/Pages/LoginPage/photo1.png"
+import img1 from "../Pages/LoginPage/photo1.png"
 
 export default function Navbar() {
     const divStyle = {

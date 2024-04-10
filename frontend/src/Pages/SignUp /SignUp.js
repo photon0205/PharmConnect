@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import "./SignUp.css"; // Import CSS for styling
 import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import image from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/Pages/LoginPage/photo1.png";
-import gimage from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/Pages/LoginPage/googleIcon.png";
+import image from "../LoginPage/photo1.png";
+import gimage from "../LoginPage/googleIcon.png";
 export default function SignUp() {
   const navigate=useNavigate();
   const [Username, SetUsername] = useState("");
