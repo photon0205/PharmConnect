@@ -10,7 +10,7 @@ export default function Navbar() {
     <>
         
         
-      <nav className="navbar navbar-expand-lg bg-body-tertiary ">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary my-2 border-bottom">
         <div className="container-fluid ">
           <a className="navbar-brand mx-2" href="#">
             <img src={img1} style={divStyle} alt="MediStock" />
