@@ -59,7 +59,7 @@ export default function LoginPagejs() {
           <button type="submit" id="button1">
             <div className="google">
               <div className="image12"><img src={gimage} alt="Login" className="image12"/></div>
-              <div className="p1"> <span>Sign_in_with_google</span></div>
+              <div className="p1"> <span>Sign in with google</span></div>
             </div>
             
           </button>
