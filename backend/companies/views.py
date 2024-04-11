@@ -1,7 +1,7 @@
 from rest_framework import generics, permissions
 from .models import Company, Store
 from .serializers import CompanySerializer, StoreSerializer, StoreManagerSerializer
-from django.contrib.auth.models import User
+from accounts.models import User
 
 class CompanyListCreateView(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
