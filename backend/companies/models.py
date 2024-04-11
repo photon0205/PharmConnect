@@ -1,5 +1,5 @@
-from django.db import models
 from accounts.models import User
+from django.contrib.gis.db import models
 
 class Company(models.Model):
     name = models.CharField(max_length=100)
@@ -18,8 +18,8 @@ class Store(models.Model):
         related_name='stores',
         limit_choices_to={'role': 'STORE_MANAGER'}
     )
-    latitude = models.FloatField(blank=True, null=True)
-    longitude = models.FloatField(blank=True, null=True)
+
+    location = models.PointField() # 'POINT (longitude latitude)'
 
     def __str__(self):
         return self.name

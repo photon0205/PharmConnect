@@ -37,11 +37,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.gis",
     "accounts",
     "companies",
     "inventory",
     "orders",
-    "locations",
     "dashboard",
 ]
 
@@ -80,9 +80,13 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'default_test',
+        'USER': 'myuser',
+        'PASSWORD': 'myuser',
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 
@@ -121,3 +125,6 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+GDAL_LIBRARY_PATH = "/opt/homebrew/Cellar/gdal/3.8.5/lib/libgdal.34.3.8.5.dylib"
+GEOS_LIBRARY_PATH= "/opt/homebrew/Cellar/geos/3.12.1/lib/libgeos_c.1.18.1.dylib"

@@ -1,4 +1,4 @@
-from django.db import models
+from django.contrib.gis.db import models
 from accounts.models import User
 from companies.models import Store
 from inventory.models import Product

@@ -10,7 +10,7 @@ class CompanySerializer(serializers.ModelSerializer):
 class StoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Store
-        fields = ('id', 'name', 'company', 'manager', 'latitude', 'longitude')
+        fields = ('id', 'name', 'company', 'manager', 'location')
 
 class StoreManagerSerializer(serializers.ModelSerializer):
     class Meta:
