@@ -127,3 +127,4 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 GDAL_LIBRARY_PATH = "/opt/homebrew/Cellar/gdal/3.8.5/lib/libgdal.34.3.8.5.dylib"
+GEOS_LIBRARY_PATH= "/opt/homebrew/Cellar/geos/3.12.1/lib/libgeos_c.1.18.1.dylib"
