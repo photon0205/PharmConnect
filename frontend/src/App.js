@@ -5,6 +5,7 @@ import CEO from "./Pages/CEO";
 import "./App.css";
 import Dashboard from "./Pages/Dashboard/Dashboard";
 import SignUp from "./Pages/SignUp /SignUp";
+import Choose from "./Pages/Choose/Choose";
 
 import { ChakraProvider } from "@chakra-ui/react";
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/CEO-dashboard" element={<CEO />} />
+            <Route path="/choose" element={<Choose />} />
           </Routes>
         </div>
       </Router>
