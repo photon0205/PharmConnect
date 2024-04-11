@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     "companies",
     "inventory",
     "orders",
-    "locations",
     "dashboard",
 ]
 
@@ -80,9 +79,13 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'default_test',
+        'USER': 'myuser',
+        'PASSWORD': 'myuser',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
