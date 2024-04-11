@@ -1,15 +1,13 @@
 import * as React from "react";
 
-import img1 from "../Pages/LoginPage/photo1.png"
+import img1 from "../Pages/LoginPage/photo1.png";
 
 export default function Navbar() {
-    const divStyle = {
-        width:"35px"
-      };
+  const divStyle = {
+    width: "35px",
+  };
   return (
     <>
-        
-        
       <nav className="navbar navbar-expand-lg bg-body-tertiary my-2 border-bottom">
         <div className="container-fluid ">
           <a className="navbar-brand mx-2" href="#">
@@ -29,7 +27,11 @@ export default function Navbar() {
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <a className="nav-link active mx-2" aria-current="page" href="/about">
+                <a
+                  className="nav-link active mx-2"
+                  aria-current="page"
+                  href="/about"
+                >
                   About
                 </a>
               </li>
@@ -43,7 +45,6 @@ export default function Navbar() {
                   ContactUS
                 </a>
               </li>
-              
             </ul>
           </div>
         </div>
