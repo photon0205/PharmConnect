@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.gis",
     "accounts",
     "companies",
     "inventory",
@@ -85,7 +86,7 @@ DATABASES = {
         'USER': 'myuser',
         'PASSWORD': 'myuser',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': 5432,
     }
 }
 
@@ -124,3 +125,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+GDAL_LIBRARY_PATH = "/opt/homebrew/Cellar/gdal/3.8.5/lib/libgdal.34.3.8.5.dylib"
