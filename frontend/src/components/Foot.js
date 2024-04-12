@@ -1,6 +1,6 @@
 import React from "react";
 import './footer.css'
-import image from "../Pages/LoginPage/photo1.png";
+import image from "../assets/photo1.png";
 import '@fortawesome/fontawesome-free/css/all.css';
 
 function Footer() {

@@ -1,6 +1,5 @@
 import * as React from "react";
-
-import img1 from "../Pages/LoginPage/photo1.png";
+import img1 from "../assets/photo1.png";
 
 export default function Navbar() {
   const divStyle = {

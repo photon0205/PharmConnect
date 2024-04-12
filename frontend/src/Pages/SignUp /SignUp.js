@@ -1,32 +1,30 @@
-// src/LoginPage.js
 import React, { useState } from "react";
-import "./SignUp.css"; // Import CSS for styling
-import { redirect } from "react-router-dom";
+import "./SignUp.css";
 import { useNavigate } from "react-router-dom";
-import image from "../LoginPage/photo1.png";
-import gimage from "../LoginPage/googleIcon.png";
+import image from "../../assets/photo1.png";
+import gimage from "../../assets/googleIcon.png";
 export default function SignUp() {
   const navigate=useNavigate();
-  const [Username, SetUsername] = useState("");
-  const [Password, SetPassword] = useState("");
-  const [Name, SetName] = useState("");
-  const [Address, SetAddress] = useState("");
-  const [PinCode, SetPinCode] = useState("");
-  const [Phone, SetPhone] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [pinCode, setPinCode] = useState("");
+  const [phone, setPhone] = useState("");
   
   const signupndata = {
-    Name:Name,
-    Address:Address,
-    PinCode: PinCode,
-    Phone_Number: Phone,
-    username: Username,
-    password: Password,
-
+    name:name,
+    address:address,
+    pinCode: pinCode,
+    phone: phone,
+    username: username,
+    password: password,
+    role: 'USER'
   };
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/login", {
+      const response = await fetch("http://localhost:8000/api/accounts/register/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -39,7 +37,7 @@ export default function SignUp() {
       }
 
       //if response is fine
-    //   SetisLogedin(true);
+    //   setisLogedin(true);
       navigate('/dashboard');
 
 
@@ -60,39 +58,39 @@ export default function SignUp() {
           <input
             type="text"
             placeholder="Name"
-            value={Name}
-            onChange={(e) => SetName(e.target.value)}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
           <input
             type="text"
             placeholder="Address"
-            value={Address}
-            onChange={(e) => SetAddress(e.target.value)}
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
           />
           <input
             type="number"
             placeholder="Pin Code"
-            value={PinCode}
-            onChange={(e) => SetPinCode(e.target.value)}
+            value={pinCode}
+            onChange={(e) => setPinCode(e.target.value)}
           />
           
           <input
             type="number"
             placeholder="Phone_Number"
-            value={Phone}
-            onChange={(e) => SetPhone(e.target.value)}
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
           />
           <input
             type="text"
             placeholder="Username"
-            value={Username}
-            onChange={(e) => SetUsername(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
-            value={Password}
-            onChange={(e) => SetPassword(e.target.value)}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           {/* <a href="/forgot">Forgot Password</a> */}
           <button type="submit">SignUp</button>

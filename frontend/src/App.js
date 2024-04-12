@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./Pages/LoginPage/LoginPagejs";
 import CEO from "./Pages/CEO";
@@ -19,7 +18,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/CEO-dashboard" element={<CEO />} />
-            <Route path="/choose" element={<Choose />} />
+            <Route path="/" element={<Choose />} />
           </Routes>
         </div>
       </Router>
