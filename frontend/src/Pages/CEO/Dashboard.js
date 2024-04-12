@@ -9,7 +9,7 @@ import {
   HStack,
   Divider,
 } from "@chakra-ui/react";
-import StatCard from "./StatCard";
+import StatCard from "./Cards/StatCard";
 import axios from "axios";
 import ProductTable from "./ProductTable";
 
@@ -42,7 +42,7 @@ const CEODashboard = () => {
     <div>
       <Card margin="20px">
         <CardBody>
-          <Text fontSize="xl">Select Store</Text>
+          <Text fontSize="2xl"  marginBottom={'2vh'}> Select Store</Text>
           <Select defaultValue={stores[0]} style={{ height: "8vh" }}>
             {stores.map((store) => (
               <option key={store.id} value={store.id}>
@@ -54,7 +54,7 @@ const CEODashboard = () => {
       </Card>
       <Card margin="20px">
         <CardBody>
-          <Text fontSize="xl">Overall Inventory</Text>
+          <Text fontSize="2xl">Overall Inventory</Text>
           {/* make this Hstack cover the remaining of the card properly like flex space between and also add line for divider */}
           {/* add a visible divider in the HStack which line is visible */}
           <HStack
@@ -68,6 +68,7 @@ const CEODashboard = () => {
             zIndex="banner"
             bg="white"
             justifyContent="space-between"
+            marginTop={'4vh'}
           >
             <StatCard
               heading={"Categories"}
@@ -105,8 +106,8 @@ const CEODashboard = () => {
       </Card>
       <Card margin="20px">
         <CardBody>
-          <HStack justifyContent="space-between">
-            <Text fontSize="xl">Products</Text>
+          <HStack justifyContent="space-between" marginBottom={'2vh'}>
+            <Text fontSize="2xl">Products</Text>
             <Box display="flex" alignItems="center" marginRight="16vw">
               <Button colorScheme="blue" marginRight={"0.5vw"}>
                 Add Product

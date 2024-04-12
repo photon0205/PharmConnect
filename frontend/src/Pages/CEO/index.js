@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Navbar from '../../components/Navbar';
-import WithSidebarWrapper from './WithSidebarWrapper';
-import SideNavContent from './SideNavContent';
+import WithSidebarWrapper from './Sidenav/WithSidebarWrapper';
+import SideNavContent from './Sidenav/SideNavContent';
 import ManageStore from './ManageStore';
 import CEODashboard from './Dashboard';
 
