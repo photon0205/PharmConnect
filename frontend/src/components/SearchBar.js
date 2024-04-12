@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-
-import "./SearchBar.css"; // Import CSS file for styling
-import sicon from "./searchIcon.png";
+import "./SearchBar.css";
+import sicon from "../assets/searchIcon.png";
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState("");
@@ -25,7 +24,7 @@ const SearchBar = ({ onSearch }) => {
         className="search-input"
       />
       <button type="submit" className="search-button">
-      <img src={sicon} alt="search" />
+        <img src={sicon} alt="search" />
       </button>
       {/* <h4 className="deliver">Deliver to : {}</h4> */}
     </form>

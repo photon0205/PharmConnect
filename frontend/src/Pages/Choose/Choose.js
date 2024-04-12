@@ -1,47 +1,43 @@
-// src/LoginPage.js
-import React, { useState } from "react";
-import {useNavigate} from "react-router-dom";
-import image from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/Pages/LoginPage/photo1.png";
-import './Choose.css'
-import business from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/Vector.png";
-import cust from "/Users/saiyamarora/Desktop/PharmConnect/frontend/src/Group 48096315.png";
-// import { useNavigate } from "react-router-dom";
-
-
-
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import image from "../../assets/photo1.png";
+import business from "../../assets/Vector.png";
+import cust from "../../assets/Group 48096315.png";
+import "./Choose.css";
 
 export default function Choose() {
+  const navigate = useNavigate();
+
+  const handleBusinessClick = () => {
+    navigate("/CEO-dashboard");
+  };
+
+  const handleCustomerClick = () => {
+    navigate("/signup");
+  };
+
   return (
-    
-    
-    
-    <div className="login-page12">
-      <div className="login-container12">
-        <img src={image} alt="Login" className="login-image12" />
+    <div className="login-page">
+      <div className="login-container">
+        <img src={image} alt="Login" className="login-image" />
       </div>
-      
-      <div className="selectrole">
-        
+
+      <div className="select-role">
         <div className="customer">
-          
-<button class="button12" >
-  <img src={business} alt="Button Image"/>
-  <h1> Business </h1>
-  <p>Register as the CEO of the company</p>
-
-</button>
+          <button className="button" onClick={handleBusinessClick}>
+            <img src={business} alt="Button Image" />
+            <h1> Business </h1>
+            <p>Register as the CEO of the company</p>
+          </button>
         </div>
-        <div className="ceo12">
-        <button class="button12" >
-  <img src={cust} alt="Button Image"/>
-  <h1> Customer </h1>
-  <p>Register as the Customer to buy products</p>
-
-</button>
+        <div className="ceo">
+          <button className="button" onClick={handleCustomerClick}>
+            <img src={cust} alt="Button Image" />
+            <h1> Customer </h1>
+            <p>Register as the Customer to buy products</p>
+          </button>
         </div>
       </div>
     </div>
   );
 }
-
-// page mai components dal ke page app.js mai daldu?

@@ -1,11 +1,11 @@
 import React from "react";
 import "./Ads.css";
-import image1 from "../../i1.png";
-import image2 from "../../i2.png";
-import image3 from "../../i3.png";
-import image4 from "../../i4.png";
-import image5 from "../../i5.png";
-import image6 from "../../i6.png";
+import image1 from "../../assets/i1.png";
+import image2 from "../../assets/i2.png";
+import image3 from "../../assets/i3.png";
+import image4 from "../../assets/i4.png";
+import image5 from "../../assets/i5.png";
+import image6 from "../../assets/i6.png";
 
 export default function Ads() {
   return (

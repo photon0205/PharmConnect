@@ -1,15 +1,13 @@
-// src/LoginPage.js
 import React, { useState } from "react";
 import "./LoginPage.css"; // Import CSS for styling
-import { redirect } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import image from "../LoginPage/photo1.png";
-import gimage from "../LoginPage/googleIcon.png";
+import image from "../../assets/photo1.png";
+import gimage from "../../assets/googleIcon.png";
 export default function LoginPagejs() {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [Username, SetUsername] = useState("");
   const [Password, SetPassword] = useState("");
-  const [isLogedin, SetisLogedin] = useState(false); // merko yeh export krna hai
+  const [isLogedin, SetisLogedin] = useState(false);
   const logindata = {
     username: Username,
     password: Password,
@@ -31,9 +29,7 @@ export default function LoginPagejs() {
 
       //if response is fine
       SetisLogedin(true);
-      navigate('/dashboard');
-
-
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
     }
@@ -64,15 +60,17 @@ export default function LoginPagejs() {
           <button type="submit">Signin</button>
           <button type="submit" id="button1">
             <div className="google">
-              <div className="image12"><img src={gimage} alt="Login" className="image12"/></div>
-              <div className="p1"> <span>Sign in with google</span></div>
+              <div className="image12">
+                <img src={gimage} alt="Login" className="image12" />
+              </div>
+              <div className="p1">
+                {" "}
+                <span>Sign in with google</span>
+              </div>
             </div>
-            
           </button>
         </form>
       </div>
     </div>
   );
 }
-
-// page mai components dal ke page app.js mai daldu?
