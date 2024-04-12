@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./SearchBar.css";
 import sicon from "../assets/searchIcon.png";
+import axios from "axios";
 
 const SearchBar = ({ onSearch }) => {
   const [query, setQuery] = useState("");
@@ -9,9 +10,15 @@ const SearchBar = ({ onSearch }) => {
     setQuery(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onSearch(query);
+
+    try {
+      const response = await axios.get(`http://localhost:8000/products/search?query=${query}`);
+      onSearch(response.data);
+    } catch (error) {
+      console.error("Error searching for products:", error);
+    }
   };
 
   return (

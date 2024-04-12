@@ -15,10 +15,6 @@ const CEO = () => {
         );
       case 1:
         return (
-          <CEODashboard />
-        );
-      case 2:
-        return (
           <ManageStore />
         );
       default:

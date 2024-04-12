@@ -1,6 +1,7 @@
+// Card.jsx
 import React, { useState } from 'react';
-import './Card.css'; // Import CSS file for styling
-import image from "../assets/i2.png"
+import './Card.css';
+
 const Card = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
 
@@ -15,18 +16,18 @@ const Card = ({ product }) => {
   };
 
   const handleBuyNow = () => {
-    // You can navigate to the checkout page or perform any other action here
     console.log(`Buying ${quantity} ${product.name}`);
   };
 
   return (
     <div className="card">
       <div className="image-container">
-        <img src={image} alt={"DETTOL"} className="product-image" />
+        <img src={product.image_url} alt={product.name} className="product-image" />
       </div>
       <div className="product-details">
-        <h2>DETTOL</h2>
-        <p>Kharido bhai</p>
+        <h2>{product.name}</h2>
+        <p>{product.description}</p>
+        <p>Price: ₹{product.price}</p>
         <div className="quantity-controls">
           <button onClick={handleDecrement}>-</button>
           <input type="text" value={quantity} readOnly />

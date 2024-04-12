@@ -23,7 +23,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("token/", jwt_views.TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),
-    path("api/accounts/", include("accounts.urls")),
-    path("api/companies/", include("companies.urls")),
-    path("api/orders/", include("orders.urls")),
+    path("accounts/", include("accounts.urls")),
+    path("", include("companies.urls")),
+    path("orders/", include("orders.urls")),
 ]

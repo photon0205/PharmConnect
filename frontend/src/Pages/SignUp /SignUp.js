@@ -4,43 +4,44 @@ import { useNavigate } from "react-router-dom";
 import image from "../../assets/photo1.png";
 import gimage from "../../assets/googleIcon.png";
 export default function SignUp() {
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [pinCode, setPinCode] = useState("");
   const [phone, setPhone] = useState("");
-  
+
   const signupndata = {
-    name:name,
-    address:address,
+    name: name,
+    address: address,
     pinCode: pinCode,
     phone: phone,
     username: username,
     password: password,
-    role: 'USER'
+    role: "USER",
   };
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:8000/api/accounts/register/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signupndata),
-      });
+      const response = await fetch(
+        "http://localhost:8000/api/accounts/register/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(signupndata),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed");
       }
 
       //if response is fine
-    //   setisLogedin(true);
-      navigate('/dashboard');
-
-
+      //   setisLogedin(true);
+      navigate("/dashboard");
     } catch (error) {
       console.log(error);
     }
@@ -49,7 +50,8 @@ export default function SignUp() {
     <div className="login-page">
       <div className="login-container">
         <img src={image} alt="Login" className="login-image" />
-
+      </div>
+      <div className="loginform">
         <form onSubmit={handleSignUp} className="login-form">
           <img src={image} alt="" className="image" />
           <h1>User Registration</h1>
@@ -73,7 +75,7 @@ export default function SignUp() {
             value={pinCode}
             onChange={(e) => setPinCode(e.target.value)}
           />
-          
+
           <input
             type="number"
             placeholder="Phone_Number"
@@ -96,10 +98,14 @@ export default function SignUp() {
           <button type="submit">SignUp</button>
           <button type="submit" id="button1">
             <div className="google">
-              <div className="image12"><img src={gimage} alt="Login" className="image12"/></div>
-              <div className="p1"> <span>Sign up with google</span></div>
+              <div className="image12">
+                <img src={gimage} alt="Login" className="image12" />
+              </div>
+              <div className="p1">
+                {" "}
+                <span>Sign up with google</span>
+              </div>
             </div>
-            
           </button>
         </form>
       </div>

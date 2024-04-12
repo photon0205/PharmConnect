@@ -7,7 +7,7 @@ export default function BottomImage() {
   return (
     <>
     <div className="xyz">
-    <Link to="/register">
+    <Link to="/signup">
         <button className='button'>Register Company</button>
       </Link>
     </div>

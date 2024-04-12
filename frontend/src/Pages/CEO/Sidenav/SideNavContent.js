@@ -18,16 +18,9 @@ const SideNavContent = ({ stage, setStage }) => {
         Dashboard
       </BasicNavButton>
       <BasicNavButton
-        leftIcon={<Box as={MdTrolley} w={6} h={6} />}
+        leftIcon={<Box as={TbListCheck} w={6} h={6} />}
         onClick={() => setStage(1)}
         isActive={stage === 1}
-      >
-        Inventory
-      </BasicNavButton>
-      <BasicNavButton
-        leftIcon={<Box as={TbListCheck} w={6} h={6} />}
-        onClick={() => setStage(2)}
-        isActive={stage === 2}
       >
         Manage Stores
       </BasicNavButton>

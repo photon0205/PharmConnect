@@ -4,25 +4,29 @@ import StoreCard from "./Cards/StoreCard";
 
 const ManageStore = () => {
   const [stores, setStores] = useState([]);
+
   useEffect(() => {
-    // fetch("http://localhost:5000/api/v1/stores")
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setStores(data);
-    // });
-    setStores([
-      {
-        id: 1,
-        name: "Store 1",
-        location: "Location 1",
-      },
-      {
-        id: 2,
-        name: "Store 2",
-        location: "Location 2",
-      },
-    ]);
+    const fetchStores = async () => {
+      try {
+        const accessToken = localStorage.getItem("access_token");
+        const response = await fetch("http://localhost:8000/stores/", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error("Failed to fetch stores");
+        }
+        const data = await response.json();
+        setStores(data);
+      } catch (error) {
+        console.error("Error fetching stores:", error);
+      }
+    };
+
+    fetchStores();
   }, []);
+
   return (
     <Card margin="20px">
       <CardBody>

@@ -1,8 +1,15 @@
 from rest_framework import serializers
+from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from companies.models import Company, Store
+from .models import Worker
 
 User = get_user_model()
+
+class WorkerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Worker
+        fields = ['id', 'name', 'store', 'salary', 'salary_paid', 'phone']
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -27,6 +34,8 @@ class UserSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
+        password = validated_data.pop('password')
+        validated_data['password'] = make_password(password)
         company_name = validated_data.pop('company_name', None)
         store_name = validated_data.pop('store_name', None)
         user = super().create(validated_data)
@@ -41,6 +50,7 @@ class UserSerializer(serializers.ModelSerializer):
             store.save()
 
         return user
+
 
 class UserLoginSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=150)

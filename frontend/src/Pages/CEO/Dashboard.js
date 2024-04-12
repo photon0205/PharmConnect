@@ -15,35 +15,78 @@ import ProductTable from "./ProductTable";
 
 const CEODashboard = () => {
   const [stores, setStores] = useState([]);
+  const [selectedStore, setSelectedStore] = useState(null);
+  const [statistics, setStatistics] = useState({
+    total_products: 0,
+    top_selling_product: {},
+    low_stock_product: {},
+  });
   const [products, setProducts] = useState([]);
-  useEffect(() => {
-    // axios.get('http://localhost:5000/api/ceo/dashboard')
-    //     .then((response) => {
-    //         setStores(response.data.stores);
-    //         setProducts(response.data.products);
-    //     })
 
-    setStores([
-      {
-        id: 1,
-        name: "Store 1",
-        location: "Location 1",
-      },
-      {
-        id: 2,
-        name: "Store 2",
-        location: "Location 2",
-      },
-    ]);
+  useEffect(() => {
+    const fetchStoreData = async () => {
+      try {
+        const accessToken = localStorage.getItem("access_token");
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+        if (selectedStore) {
+          const productsResponse = await axios.get(
+            `http://localhost:8000/stores/${selectedStore}/`,
+            config
+          );
+          setProducts(productsResponse.data[0].products);
+          setStatistics(productsResponse.data[0].statistics);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchStoreData();
+  }, [selectedStore]);
+
+  useEffect(() => {
+    const fetchStores = async () => {
+      try {
+        const accessToken = localStorage.getItem("access_token");
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+        const response = await axios.get("http://localhost:8000/stores/", config);
+        setStores(response.data);
+        if (response.data.length > 0) {
+          setSelectedStore(response.data[0].id);
+        }
+      } catch (error) {
+        console.error("Error fetching stores:", error);
+      }
+    };
+
+    fetchStores();
   }, []);
-  // return a box which uses chakra dropdown selection to select the store and display the products of that store
-  // the products are displayed in a table with many columns use chakra table and chakra dropdown
+
+  const handleStoreChange = (event) => {
+    setSelectedStore(event.target.value);
+  };
+
   return (
     <div>
       <Card margin="20px">
         <CardBody>
-          <Text fontSize="2xl"  marginBottom={'2vh'}> Select Store</Text>
-          <Select defaultValue={stores[0]} style={{ height: "8vh" }}>
+          <Text fontSize="2xl" marginBottom={"2vh"}>
+            {" "}
+            Select Store
+          </Text>
+          <Select
+            value={selectedStore}
+            onChange={handleStoreChange}
+            style={{ height: "8vh" }}
+          >
             {stores.map((store) => (
               <option key={store.id} value={store.id}>
                 {store.name}
@@ -55,8 +98,6 @@ const CEODashboard = () => {
       <Card margin="20px">
         <CardBody>
           <Text fontSize="2xl">Overall Inventory</Text>
-          {/* make this Hstack cover the remaining of the card properly like flex space between and also add line for divider */}
-          {/* add a visible divider in the HStack which line is visible */}
           <HStack
             px={12}
             py={3}
@@ -68,37 +109,30 @@ const CEODashboard = () => {
             zIndex="banner"
             bg="white"
             justifyContent="space-between"
-            marginTop={'4vh'}
+            marginTop={"4vh"}
           >
             <StatCard
-              heading={"Categories"}
-              value1={14}
-              value2={null}
-              subhead={null}
-              color={"#1570EF"}
-            />
-            <Divider orientation="vertical" />
-            <StatCard
               heading={"Total Products"}
-              value1={868}
-              value2={"₹25000"}
-              subhead={"Revenue"}
+              value1={statistics.total_products}
+              subhead1={"Products"}
               color={"#E19133"}
             />
             <Divider orientation="vertical" />
             <StatCard
               heading={"Top Selling"}
-              value1={5}
-              value2={"₹2500"}
-              subhead={"Cost"}
+              value1={statistics.top_selling_product.name}
+              value2={`₹${statistics.top_selling_product.total_revenue}`}
+              subhead1={"Product"}
+              subhead2={"Revenue"}
               color={"#845EBC"}
             />
             <Divider orientation="vertical" />
             <StatCard
               heading={"Low Stocks"}
-              value1={12}
-              value2={"2"}
-              subhead={"Not in Stock"}
+              value1={statistics.low_stock_product.name}
+              value2={statistics.low_stock_product.current_quantity}
+              subhead1={"Product"}
+              subhead2={"Qty"}
               color={"#F36960"}
             />
           </HStack>
@@ -106,32 +140,16 @@ const CEODashboard = () => {
       </Card>
       <Card margin="20px">
         <CardBody>
-          <HStack justifyContent="space-between" marginBottom={'2vh'}>
-            <Text fontSize="2xl">Products</Text>
+          <HStack justifyContent="space-between" marginBottom={"2vh"}>
+            <Text fontSize="2xl">Inventory</Text>
             <Box display="flex" alignItems="center" marginRight="16vw">
               <Button colorScheme="blue" marginRight={"0.5vw"}>
                 Add Product
               </Button>
-              <Button
-                colorScheme="gray"
-                bg="white"
-                borderColor="gray.400"
-                borderWidth="2px"
-                marginRight={"0.5vw"}
-              >
-                Button Text
-              </Button>
-              <Button
-                colorScheme="gray"
-                bg="white"
-                borderColor="gray.400"
-                borderWidth="2px"
-              >
-                Download all
-              </Button>
+              {/* Other buttons */}
             </Box>
           </HStack>
-          <ProductTable />
+          <ProductTable products={products} selectedStore={selectedStore} />
         </CardBody>
       </Card>
     </div>
