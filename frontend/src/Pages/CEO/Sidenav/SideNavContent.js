@@ -1,5 +1,5 @@
 import { Box, VStack, Button } from '@chakra-ui/react'
-import BasicNavButton from './BasicNavButton.js'
+import BasicNavButton from '../BasicNavButton.js'
 import { FaHouse } from "react-icons/fa6";
 import { MdTrolley } from "react-icons/md";
 import { TbListCheck } from "react-icons/tb";
