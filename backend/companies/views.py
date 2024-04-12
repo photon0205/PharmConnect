@@ -1,57 +1,85 @@
-from rest_framework import generics, permissions
-from .models import Company, Store
-from .serializers import CompanySerializer, StoreSerializer, StoreManagerSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Company, Store, Inventory, Product
+from .serializers import ProductSerializer, StoreSerializer, InventorySerializer
 from accounts.models import User
-from django.contrib.gis.geos import Point
-from django.contrib.gis.measure import Distance
 
-class CompanyListCreateView(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
+class AllStoresOfCompany(APIView):
+    def get(self, request, company_id):
+        try:
+            company = Company.objects.get(id=company_id)
+            stores = Store.objects.filter(company=company)
+            serializer = StoreSerializer(stores, many=True)
+            return Response(serializer.data)
+        except Company.DoesNotExist:
+            return Response({"message": "Company not found"}, status=status.HTTP_404_NOT_FOUND)
 
-class CompanyRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
+class UpdateStoreManager(APIView):
+    def put(self, request, store_id):
+        try:
+            store = Store.objects.get(id=store_id)
+            new_manager_id = request.data.get('manager_id')
+            new_manager, created = User.objects.get_or_create(id=new_manager_id, defaults={'password': User.objects.make_random_password()})
+            if created:
+                new_manager.save()
+            store.manager = new_manager
+            store.save()
+            return Response({"message": "Store manager updated successfully", "new_manager_password": new_manager.password}, status=status.HTTP_200_OK)
+        except Store.DoesNotExist:
+            return Response({"message": "Store not found"}, status=status.HTTP_404_NOT_FOUND)
+        except User.DoesNotExist:
+            return Response({"message": "Manager not found"}, status=status.HTTP_404_NOT_FOUND)
 
-class StoreListCreateView(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
-    queryset = Store.objects.all()
-    serializer_class = StoreSerializer
+class StoreInventory(APIView):
+    def get(self, request, store_id):
+        try:
+            store = Store.objects.get(id=store_id)
+            inventory = Inventory.objects.filter(store=store)
+            serializer = InventorySerializer(inventory, many=True)
+            return Response(serializer.data)
+        except Store.DoesNotExist:
+            return Response({"message": "Store not found"}, status=status.HTTP_404_NOT_FOUND)
 
-class StoreRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
-    queryset = Store.objects.all()
-    serializer_class = StoreSerializer
+class AddRemoveInventory(APIView):
+    def put(self, request, store_id):
+        try:
+            store = Store.objects.get(id=store_id)
+            product_id = request.data.get('product_id')
+            quantity = int(request.data.get('quantity', 0))
+            action = request.data.get('action')
+            product = Product.objects.get(id=product_id)
+            
+            inventory, created = Inventory.objects.get_or_create(store=store, product=product)
+            
+            if action == 'add':
+                inventory.quantity += quantity
+            elif action == 'remove':
+                inventory.quantity -= quantity
+                
+            inventory.save()
+            
+            return Response({"message": "Inventory updated successfully"}, status=status.HTTP_200_OK)
+        except Store.DoesNotExist:
+            return Response({"message": "Store not found"}, status=status.HTTP_404_NOT_FOUND)
+        except Product.DoesNotExist:
+            return Response({"message": "Product not found"}, status=status.HTTP_404_NOT_FOUND)
 
-class StoreManagerListCreateView(generics.ListCreateAPIView):
-    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
-
-    def get_queryset(self):
-        store_id = self.kwargs['store_id']
-        return Store.objects.get(id=store_id).manager.all()
-
-    serializer_class = StoreManagerSerializer
-
-class StoreManagerRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = [permissions.IsAuthenticated, permissions.IsAdminUser]
-    queryset = User.objects.filter(role='STORE_MANAGER')
-    serializer_class = StoreManagerSerializer
-
-class StoresListView(generics.ListAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    queryset = Store.objects.all()
-    serializer_class = CompanySerializer
-
-class StoreRangeView(generics.ListAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    serializer_class = StoreSerializer
-
+class AllStoresSortedByLocation(APIView):
     def get(self, request):
-        latitude = request.query_params.get('latitude')
-        longitude = request.query_params.get('longitude')
-        search_point = Point(float(longitude), float(latitude), srid=4326)
-        stores = Store.objects.filter(point__distance_lte=(search_point, Distance(km=10)))
-        serializer = self.serializer_class(stores, many=True)
-        return serializer.data
+        try:
+            latitude = float(request.query_params.get('latitude'))
+            longitude = float(request.query_params.get('longitude'))
+            stores = Store.objects.all().order_by('latitude', 'longitude')
+            serializer = StoreSerializer(stores, many=True)
+            return Response(serializer.data)
+        except ValueError:
+            return Response({"message": "Invalid latitude or longitude"}, status=status.HTTP_400_BAD_REQUEST)
+
+class SearchProductByName(APIView):
+    def get(self, request):
+        product_name = request.query_params.get('name', '')
+        products = Product.objects.filter(name__icontains=product_name)
+        serializer = ProductSerializer(products, many=True)
+
+        return Response(serializer.data)

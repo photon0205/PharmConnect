@@ -1,18 +1,31 @@
 from rest_framework import serializers
-from .models import Company, Store
-from accounts.models import User
+from .models import Product, Store, Inventory
+from accounts.serializers import UserSerializer
 
-class CompanySerializer(serializers.ModelSerializer):
+
+class InventorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Company
-        fields = ('id', 'name', 'ceo')
+        model = Inventory
+        fields = ("id", "product", "quantity")
+
 
 class StoreSerializer(serializers.ModelSerializer):
+    manager = UserSerializer()
+    inventory = InventorySerializer(many=True, read_only=True)
+
     class Meta:
         model = Store
-        fields = ('id', 'name', 'company', 'manager', 'location')
+        fields = (
+            "id",
+            "name",
+            "company",
+            "manager",
+            "longitude",
+            "latitude",
+            "inventory",
+        )
 
-class StoreManagerSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('id', 'username', 'email', 'role')
+        model = Product
+        fields = '__all__'

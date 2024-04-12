@@ -1,7 +1,6 @@
-from django.contrib.gis.db import models
+from django.db import models
 from accounts.models import User
-from companies.models import Store
-from inventory.models import Product
+from companies.models import Store, Product
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='orders')

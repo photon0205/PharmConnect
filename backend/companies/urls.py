@@ -1,15 +1,10 @@
 from django.urls import path
 from . import views
 
-app_name = 'companies'
-
 urlpatterns = [
-    path('companies/', views.CompanyListCreateView.as_view(), name='company-list-create'),
-    path('companies/<int:pk>/', views.CompanyRetrieveUpdateDestroyView.as_view(), name='company-detail'),
-    path('stores/all/', views.StoresListView.as_view(), name='store-list-all'),
-    path('stores/range/', views.StoreRangeView.as_view(), name='store-range'),
-    path('stores/', views.StoreListCreateView.as_view(), name='store-list-create'),
-    path('stores/<int:pk>/', views.StoreRetrieveUpdateDestroyView.as_view(), name='store-detail'),
-    path('stores/<int:store_id>/managers/', views.StoreManagerListCreateView.as_view(), name='store-manager-list-create'),
-    path('stores/<int:store_id>/managers/<int:pk>/', views.StoreManagerRetrieveUpdateDestroyView.as_view(), name='store-manager-detail'),
+    path('companies/<int:company_id>/stores/', views.AllStoresOfCompany.as_view(), name='all-stores-of-company'),
+    path('stores/<int:store_id>/update-manager/', views.UpdateStoreManager.as_view(), name='update-store-manager'),
+    path('stores/<int:store_id>/inventory/', views.StoreInventory.as_view(), name='store-inventory'),
+    path('stores/<int:store_id>/inventory/update/', views.AddRemoveInventory.as_view(), name='add-remove-inventory'),
+    path('stores/sorted/', views.AllStoresSortedByLocation.as_view(), name='all-stores-sorted-by-location'),
 ]

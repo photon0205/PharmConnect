@@ -1,8 +1,7 @@
 from rest_framework import serializers
 from .models import Order, OrderItem
 from accounts.models import User
-from companies.models import Store
-from inventory.models import Product
+from companies.models import Store, Product
 
 class OrderSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
