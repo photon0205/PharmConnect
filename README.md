@@ -25,7 +25,7 @@ This project involves the development of a web application for managing medicine
 7. Access the application via the specified URL.
 
 ## Contribution Guidelines
-- Fork the repository and create a new branch for your contributions.
+- Fork the repository and create a new branch for your contributions. 
 - Follow the coding conventions and commit message guidelines.
 - Open a pull request detailing the changes made and why they are necessary.
 - Collaborate with other contributors for code review and improvements.
